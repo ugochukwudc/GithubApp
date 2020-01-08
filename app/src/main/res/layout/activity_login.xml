@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.models.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_text_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="6"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/LoginErrorTextAppearance"
+            app:errorText="@{viewModel.validationResult}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.8"
+            app:layout_constraintVertical_bias="0.3"
+            tools:errorText="This is an error"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:maxLength="6"
+                android:text="@={viewModel.userCodeInput}"
+                tools:hint="Enter Your Six Digit Code"
+                tools:text="123456" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.example.myapplication.views.ProgressButtonCompoundView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onLogin()}"
+            android:enabled="@{viewModel.canLogin}"
+            android:clickable="@{!viewModel.isLoading}"
+            android:text="Login"
+            app:viewModel="@{viewModel}"
+            app:layout_constraintStart_toStartOf="@id/login_text_layout"
+            app:layout_constraintEnd_toEndOf="@id/login_text_layout"
+            app:layout_constraintTop_toBottomOf="@id/login_text_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
